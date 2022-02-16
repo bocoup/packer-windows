@@ -37,7 +37,7 @@ trap cleanup EXIT
 packer build \
   --except=vagrant \
   --only=virtualbox-iso \
-  --var autounattend=${temporary_auto_unattend_file}
+  --var autounattend=${temporary_auto_unattend_file} \
   --var iso_checksum=sha256:7F6538F0EB33C30F0A5CBBF2F39973D4C8DEA0D64F69BD18E406012F17A8234F \
   --var iso_url=./Win10_21H2_English_x64.iso \
   windows_10.json
