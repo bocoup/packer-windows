@@ -22,14 +22,15 @@ fi
 
 windows_product_key=$1
 
-temporary_auto_unattend_file=$(mktemp)
+temporary_directory=$(mktemp --directory --suffix .windows-packer)
+temporary_auto_unattend_file=${temporary_directory}/Autounattend.xml
 
-sed "s/WINDOWS_PRODUCT_KEY/$windows_product_key/" \
+sed "s/WINDOWS_PRODUCT_KEY/${windows_product_key}/" \
   < ./answer_files/10/Autounattend.xml \
   > ${temporary_auto_unattend_file}
 
 function cleanup {
-  rm $temporary_auto_unattend_file
+  rm -rf ${temporary_directory}
 }
 
 trap cleanup EXIT
