@@ -34,10 +34,6 @@ function cleanup {
 
 trap cleanup EXIT
 
-echo $temporary_auto_unattend_file
-cat $temporary_auto_unattend_file
-exit
-
 packer build \
   --only=virtualbox-iso \
   --skip=vagrant \
