@@ -1,4 +1,3 @@
-
 variable "autounattend" {
   type    = string
   default = "./answer_files/10/Autounattend.xml"
@@ -70,7 +69,17 @@ source "hyperv-iso" "windows_10" {
   configuration_version = "8.0"
   cpus                  = "2"
   disk_size             = "${var.disk_size}"
-  floppy_files          = ["${var.autounattend}", "./floppy/WindowsPowershell.lnk", "./floppy/PinTo10.exe", "./scripts/fixnetwork.ps1", "./scripts/disable-screensaver.ps1", "./scripts/disable-winrm.ps1", "./scripts/enable-winrm.ps1", "./scripts/microsoft-updates.bat", "./scripts/win-updates.ps1"]
+  floppy_files          = [
+    "${var.autounattend}",
+    "./floppy/WindowsPowershell.lnk",
+    "./floppy/PinTo10.exe",
+    "./scripts/fixnetwork.ps1",
+    "./scripts/disable-screensaver.ps1",
+    "./scripts/disable-winrm.ps1",
+    "./scripts/enable-winrm.ps1",
+    "./scripts/microsoft-updates.bat",
+    "./scripts/win-updates.ps1"
+  ]
   guest_additions_mode  = "none"
   iso_checksum          = "${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
@@ -89,14 +98,27 @@ source "parallels-iso" "windows_10" {
   communicator           = "winrm"
   cpus                   = 2
   disk_size              = "${var.disk_size}"
-  floppy_files           = ["${var.autounattend}", "./floppy/WindowsPowershell.lnk", "./floppy/PinTo10.exe", "./scripts/fixnetwork.ps1", "./scripts/disable-screensaver.ps1", "./scripts/disable-winrm.ps1", "./scripts/enable-winrm.ps1", "./scripts/microsoft-updates.bat", "./scripts/win-updates.ps1"]
+  floppy_files           = [
+    "${var.autounattend}",
+    "./floppy/WindowsPowershell.lnk",
+    "./floppy/PinTo10.exe",
+    "./scripts/fixnetwork.ps1",
+    "./scripts/disable-screensaver.ps1",
+    "./scripts/disable-winrm.ps1",
+    "./scripts/enable-winrm.ps1",
+    "./scripts/microsoft-updates.bat",
+    "./scripts/win-updates.ps1"
+  ]
   guest_os_type          = "win-10"
   iso_checksum           = "${var.iso_checksum}"
   iso_url                = "${var.iso_url}"
   memory                 = "${var.memory}"
   parallels_tools_flavor = "win"
   parallels_tools_mode   = "disable"
-  prlctl                 = [["set", "{{ .Name }}", "--adaptive-hypervisor", "on"], ["set", "{{ .Name }}", "--efi-boot", "off"]]
+  prlctl                 = [
+    ["set", "{{ .Name }}", "--adaptive-hypervisor", "on"],
+    ["set", "{{ .Name }}", "--efi-boot", "off"]
+  ]
   shutdown_command       = "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\""
   vm_name                = "${var.vm_name}"
   winrm_password         = "vagrant"
@@ -110,13 +132,27 @@ source "qemu" "windows_10" {
   communicator     = "winrm"
   cpus             = "2"
   disk_size        = "${var.disk_size}"
-  floppy_files     = ["${var.autounattend}", "./floppy/WindowsPowershell.lnk", "./floppy/PinTo10.exe", "./scripts/fixnetwork.ps1", "./scripts/disable-screensaver.ps1", "./scripts/disable-winrm.ps1", "./scripts/enable-winrm.ps1", "./scripts/microsoft-updates.bat", "./scripts/win-updates.ps1"]
+  floppy_files     = [
+    "${var.autounattend}",
+    "./floppy/WindowsPowershell.lnk",
+    "./floppy/PinTo10.exe",
+    "./scripts/fixnetwork.ps1",
+    "./scripts/disable-screensaver.ps1",
+    "./scripts/disable-winrm.ps1",
+    "./scripts/enable-winrm.ps1",
+    "./scripts/microsoft-updates.bat",
+    "./scripts/win-updates.ps1"
+  ]
   headless         = true
   iso_checksum     = "${var.iso_checksum}"
   iso_url          = "${var.iso_url}"
   memory           = "${var.memory}"
   output_directory = "windows_10-qemu"
-  qemuargs         = [["-drive", "file=windows_10-qemu/{{ .Name }},if=virtio,cache=writeback,discard=ignore,format=qcow2,index=1"], ["-drive", "file=${var.iso_url},media=cdrom,index=2"], ["-drive", "file=${var.virtio_win_iso},media=cdrom,index=3"]]
+  qemuargs         = [
+    ["-drive", "file=windows_10-qemu/{{ .Name }},if=virtio,cache=writeback,discard=ignore,format=qcow2,index=1"],
+    ["-drive", "file=${var.iso_url},media=cdrom,index=2"],
+    ["-drive", "file=${var.virtio_win_iso},media=cdrom,index=3"]
+  ]
   shutdown_command = "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\""
   vm_name          = "${var.vm_name}"
   winrm_password   = "vagrant"
@@ -130,7 +166,17 @@ source "virtualbox-iso" "windows_10" {
   communicator         = "winrm"
   cpus                 = 2
   disk_size            = "${var.disk_size}"
-  floppy_files         = ["${var.autounattend}", "./floppy/WindowsPowershell.lnk", "./floppy/PinTo10.exe", "./scripts/fixnetwork.ps1", "./scripts/disable-screensaver.ps1", "./scripts/disable-winrm.ps1", "./scripts/enable-winrm.ps1", "./scripts/microsoft-updates.bat", "./scripts/win-updates.ps1"]
+  floppy_files         = [
+    "${var.autounattend}",
+    "./floppy/WindowsPowershell.lnk",
+    "./floppy/PinTo10.exe",
+    "./scripts/fixnetwork.ps1",
+    "./scripts/disable-screensaver.ps1",
+    "./scripts/disable-winrm.ps1",
+    "./scripts/enable-winrm.ps1",
+    "./scripts/microsoft-updates.bat",
+    "./scripts/win-updates.ps1"
+  ]
   guest_additions_mode = "disable"
   guest_os_type        = "Windows10_64"
   headless             = "${var.headless}"
@@ -152,7 +198,17 @@ source "vmware-iso" "windows_10" {
   disk_adapter_type = "lsisas1068"
   disk_size         = "${var.disk_size}"
   disk_type_id      = "${var.disk_type_id}"
-  floppy_files      = ["${var.autounattend}", "./floppy/WindowsPowershell.lnk", "./floppy/PinTo10.exe", "./scripts/fixnetwork.ps1", "./scripts/disable-screensaver.ps1", "./scripts/disable-winrm.ps1", "./scripts/enable-winrm.ps1", "./scripts/microsoft-updates.bat", "./scripts/win-updates.ps1"]
+  floppy_files      = [
+    "${var.autounattend}",
+    "./floppy/WindowsPowershell.lnk",
+    "./floppy/PinTo10.exe",
+    "./scripts/fixnetwork.ps1",
+    "./scripts/disable-screensaver.ps1",
+    "./scripts/disable-winrm.ps1",
+    "./scripts/enable-winrm.ps1",
+    "./scripts/microsoft-updates.bat",
+    "./scripts/win-updates.ps1"
+  ]
   guest_os_type     = "windows9-64"
   headless          = "${var.headless}"
   iso_checksum      = "${var.iso_checksum}"
@@ -174,7 +230,13 @@ source "vmware-iso" "windows_10" {
 }
 
 build {
-  sources = ["source.hyperv-iso.windows_10", "source.parallels-iso.windows_10", "source.qemu.windows_10", "source.virtualbox-iso.windows_10", "source.vmware-iso.windows_10"]
+  sources = [
+    "source.hyperv-iso.windows_10",
+    "source.parallels-iso.windows_10",
+    "source.qemu.windows_10",
+    "source.virtualbox-iso.windows_10",
+    "source.vmware-iso.windows_10"
+  ]
 
   provisioner "windows-shell" {
     execute_command = "{{ .Vars }} cmd /c \"{{ .Path }}\""
@@ -183,7 +245,10 @@ build {
   }
 
   provisioner "powershell" {
-    scripts = ["./scripts/vm-guest-tools.ps1", "./scripts/debloat-windows.ps1"]
+    scripts = [
+      "./scripts/vm-guest-tools.ps1",
+      "./scripts/debloat-windows.ps1"
+    ]
   }
 
   provisioner "windows-restart" {
@@ -191,13 +256,23 @@ build {
   }
 
   provisioner "powershell" {
-    scripts = ["./scripts/set-powerplan.ps1", "./scripts/docker/disable-windows-defender.ps1"]
+    scripts = [
+      "./scripts/set-powerplan.ps1",
+      "./scripts/docker/disable-windows-defender.ps1"
+    ]
   }
 
   provisioner "windows-shell" {
     execute_command = "{{ .Vars }} cmd /c \"{{ .Path }}\""
     remote_path     = "/tmp/script.bat"
-    scripts         = ["./scripts/pin-powershell.bat", "./scripts/compile-dotnet-assemblies.bat", "./scripts/set-winrm-automatic.bat", "./scripts/uac-enable.bat", "./scripts/dis-updates.bat", "./scripts/compact.bat"]
+    scripts         = [
+      "./scripts/pin-powershell.bat",
+      "./scripts/compile-dotnet-assemblies.bat",
+      "./scripts/set-winrm-automatic.bat",
+      "./scripts/uac-enable.bat",
+      "./scripts/dis-updates.bat",
+      "./scripts/compact.bat"
+    ]
   }
 
   post-processor "vagrant" {
