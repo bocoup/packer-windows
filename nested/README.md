@@ -14,7 +14,7 @@ Build the Windows 10 base box for VMware Fusion/Workstation with 100GByte disk s
 
 ```bash
 cd ..
-packer build --only=vmware-iso -var disk_size=102400 windows_10.json
+packer build --only=vmware-iso -var disk_size=102400 windows_10.pkr.hcl
 vagrant box add windows_10 windows_10_vmware.box
 ```
 
