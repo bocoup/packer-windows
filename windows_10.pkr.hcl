@@ -85,7 +85,6 @@ source "hyperv-iso" "windows_10" {
   iso_url               = "${var.iso_url}"
   memory                = "${var.memory}"
   shutdown_command      = "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\""
-  switch_name           = "${var.switch_name}"
   vm_name               = "${var.vm_name}"
   winrm_password        = "vagrant"
   winrm_timeout         = "${var.winrm_timeout}"
@@ -93,7 +92,7 @@ source "hyperv-iso" "windows_10" {
 }
 
 source "parallels-iso" "windows_10" {
-  boot_command           = ""
+  boot_command           = [""]
   boot_wait              = "6m"
   communicator           = "winrm"
   cpus                   = 2
@@ -161,7 +160,7 @@ source "qemu" "windows_10" {
 }
 
 source "virtualbox-iso" "windows_10" {
-  boot_command         = ""
+  boot_command         = [""]
   boot_wait            = "6m"
   communicator         = "winrm"
   cpus                 = 2
@@ -191,7 +190,7 @@ source "virtualbox-iso" "windows_10" {
 }
 
 source "vmware-iso" "windows_10" {
-  boot_command      = ""
+  boot_command      = [""]
   boot_wait         = "6m"
   communicator      = "winrm"
   cpus              = 2
