@@ -1,6 +1,5 @@
-variable "autounattend" {
-  type    = string
-  default = "./answer_files/10/Autounattend.xml"
+locals {
+  autounattend = templatefile("./answer_files/10/Autounattend.xml", {})
 }
 
 variable "disk_size" {
@@ -70,7 +69,6 @@ source "hyperv-iso" "windows_10" {
   cpus                  = "2"
   disk_size             = "${var.disk_size}"
   floppy_files          = [
-    "${var.autounattend}",
     "./floppy/WindowsPowershell.lnk",
     "./floppy/PinTo10.exe",
     "./scripts/fixnetwork.ps1",
@@ -80,6 +78,9 @@ source "hyperv-iso" "windows_10" {
     "./scripts/microsoft-updates.bat",
     "./scripts/win-updates.ps1"
   ]
+  floppy_content       = {
+    "Autounattend.xml" = var.autounattend
+  }
   guest_additions_mode  = "none"
   iso_checksum          = "${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
@@ -98,7 +99,6 @@ source "parallels-iso" "windows_10" {
   cpus                   = 2
   disk_size              = "${var.disk_size}"
   floppy_files           = [
-    "${var.autounattend}",
     "./floppy/WindowsPowershell.lnk",
     "./floppy/PinTo10.exe",
     "./scripts/fixnetwork.ps1",
@@ -108,6 +108,9 @@ source "parallels-iso" "windows_10" {
     "./scripts/microsoft-updates.bat",
     "./scripts/win-updates.ps1"
   ]
+  floppy_content       = {
+    "Autounattend.xml" = var.autounattend
+  }
   guest_os_type          = "win-10"
   iso_checksum           = "${var.iso_checksum}"
   iso_url                = "${var.iso_url}"
@@ -132,7 +135,6 @@ source "qemu" "windows_10" {
   cpus             = "2"
   disk_size        = "${var.disk_size}"
   floppy_files     = [
-    "${var.autounattend}",
     "./floppy/WindowsPowershell.lnk",
     "./floppy/PinTo10.exe",
     "./scripts/fixnetwork.ps1",
@@ -142,6 +144,9 @@ source "qemu" "windows_10" {
     "./scripts/microsoft-updates.bat",
     "./scripts/win-updates.ps1"
   ]
+  floppy_content       = {
+    "Autounattend.xml" = var.autounattend
+  }
   headless         = true
   iso_checksum     = "${var.iso_checksum}"
   iso_url          = "${var.iso_url}"
@@ -166,7 +171,6 @@ source "virtualbox-iso" "windows_10" {
   cpus                 = 2
   disk_size            = "${var.disk_size}"
   floppy_files         = [
-    "${var.autounattend}",
     "./floppy/WindowsPowershell.lnk",
     "./floppy/PinTo10.exe",
     "./scripts/fixnetwork.ps1",
@@ -176,6 +180,9 @@ source "virtualbox-iso" "windows_10" {
     "./scripts/microsoft-updates.bat",
     "./scripts/win-updates.ps1"
   ]
+  floppy_content       = {
+    "Autounattend.xml" = var.autounattend
+  }
   guest_additions_mode = "disable"
   guest_os_type        = "Windows10_64"
   headless             = "${var.headless}"
@@ -198,7 +205,6 @@ source "vmware-iso" "windows_10" {
   disk_size         = "${var.disk_size}"
   disk_type_id      = "${var.disk_type_id}"
   floppy_files      = [
-    "${var.autounattend}",
     "./floppy/WindowsPowershell.lnk",
     "./floppy/PinTo10.exe",
     "./scripts/fixnetwork.ps1",
@@ -208,6 +214,9 @@ source "vmware-iso" "windows_10" {
     "./scripts/microsoft-updates.bat",
     "./scripts/win-updates.ps1"
   ]
+  floppy_content       = {
+    "Autounattend.xml" = var.autounattend
+  }
   guest_os_type     = "windows9-64"
   headless          = "${var.headless}"
   iso_checksum      = "${var.iso_checksum}"
